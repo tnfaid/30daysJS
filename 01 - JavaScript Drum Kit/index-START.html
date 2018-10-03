@@ -59,6 +59,22 @@
 
 <script>
 
+ function playSound(e) {//membuat function dengna nama playsound
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);//jadi ini membuat variabel dengan nama audio tipe data konstanta. dimana isinya berupa audio yang data key nya di dapat dari keyCode
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"`);//variabel konstanta dengan nama ky dimana data berisi key dari keycode yang terpencet
+    if(!audio) return; //stop function dari awal 
+    audio.currentTime = 0; //rewind ke semula jadi bisa bunyi2 lagi, di klik awalnya hanya bunyi 1 kali padahal di klik bolak balik
+    audio.play();//audio dijalankan jadi biar keluar suaranya
+    key.classList.add('playing');//jadi ini penambahan buat css dengan nama playing diaman dia bisa ada transform ukuran liat aja di css nya jadi ada warna kuning2 itu terus aktif
+}
+
+function removeTransition(e){//membuat fungsi dengan anam removeTransition
+  if(e.propertyName !== 'transform') return; // skip jika gada transform, macam kembali gitu
+  this.classList.remove('playing');//disini dia mematikan atau menghilangkan kuning kuning border itu
+}
+  const keys = document.querySelectorAll('.key'); // membuat variabel konstanta dengan nama keys dimana dia deteksi query si kelas .key pada css
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));//penonaktifan transisi pada tiap key,jadi abis nyala langsung mati lagi
+  window.addEventListener('keydown', playSound );//pada layar utama ditambahkan eventListener yang dimana dia memanggil keydown dan play suaranya
 </script>
 
 
